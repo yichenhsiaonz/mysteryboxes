@@ -1,9 +1,10 @@
 from random import *
+
 for x in range(0,5):
     prize_list = []
-    prize_list += 3 * [["Lead", 0]]
-    prize_list += 5 * [["Copper", 1]]
-    prize_list += 3 * [["Silver", 2]]
+    prize_list += 2 * [["Lead", 0]]
+    prize_list += 4 * [["Copper", 1]]
+    prize_list += 5 * [["Silver", 2]]
     prize_list += [["Gold", 5]]
     payout = 0
 
