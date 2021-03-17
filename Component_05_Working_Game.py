@@ -7,7 +7,7 @@ class Start:
     def __init__(self):
 
         # Formatting variables
-        self.balance = 30
+        self.balance = 6
         background_color = "bisque"
         self.stakes = ""
 
@@ -29,6 +29,7 @@ class Start:
     def open_play_box(self, stakes):
         self.stakes = stakes
         Play(self)
+        root.destroy()
 
 
 class Play:
@@ -100,15 +101,16 @@ class Play:
 
         # Spin button (button, row 3)
 
-        self.spin_button = Button(self.play_frame, text="Open Boxes!", padx=80, pady=10,
+        self.spin_button = Button(self.play_frame, text="Open Boxes! (Cost: ${})".format(partner.stakes * 5),
+                                  padx=80, pady=10,
                                   font=("Arial", "10", "bold"), command=partial(self.open_boxes, partner))
         self.spin_button.grid(row=3, pady=10)
 
         # Balance label (label, row 4)
 
-        self.balance_text = Label(self.play_frame, text="balance: {}".format(self.temp_balance),
-                                  justify=LEFT, width=40,
-                                  bg=background, wrap=250, )
+        self.balance_text = Label(self.play_frame,
+                                  text="Game cost: ${}\nBalance: ${}".format(partner.stakes * 5, self.temp_balance),
+                                  width=40, bg=background, wrap=250)
         self.balance_text.grid(row=4)
 
         # Export / Help buttons (row 5)
@@ -126,6 +128,13 @@ class Play:
                                   padx=10, pady=3)
         self.help_button.grid(row=0, column=1, padx=5)
 
+        # quit button (row 6)
+
+        self.quit_button = Button(self.play_frame, text="Quit",
+                                  padx=80, pady=10,
+                                  font=("Arial", "10", "bold"), command=partial(self.close_play, partner))
+        self.quit_button.grid(row=6, pady=10)
+
     def close_play(self, partner):
         self.play_box.destroy()
 
@@ -137,8 +146,29 @@ class Play:
         self.image_2.config(file=prize_2[0])
         self.image_3.config(file=prize_3[0])
         self.temp_balance -= 5 * partner.stakes
-        self.temp_balance += prize_1[1*partner.stakes] + prize_2[1*partner.stakes] + prize_3[1*partner.stakes]
-        self.balance_text.config(text="balance: {}".format(self.temp_balance))
+        earnings = prize_1[1*partner.stakes] + prize_2[1*partner.stakes] + prize_3[1*partner.stakes]
+        loss = prize_1[1*partner.stakes] + prize_2[1*partner.stakes] + prize_3[1*partner.stakes] - partner.stakes * 5
+        self.temp_balance += earnings
+
+        payout_text = "\nGame cost: ${}\nPayout: ${}\n".format(partner.stakes * 5, earnings)
+
+        if earnings > partner.stakes * 5:
+            self.balance_text.config(text="You won ${}!{}Balance: ${}".format(loss, payout_text,
+                                                                              self.temp_balance))
+        elif earnings < partner.stakes * 5:
+            self.balance_text.config(text="You lost ${}.{}Balance: ${}".format(-1 * loss, payout_text,
+                                                                               self.temp_balance))
+        else:
+            self.balance_text.config(text="You didn't win anything.{}Balance: ${}".format(payout_text,
+                                                                                          self.temp_balance))
+
+        if self.temp_balance < partner.stakes * 5:
+            self.spin_button.configure(state=DISABLED)
+            error_append = self.balance_text.cget("text") + "\nGame over. " \
+                                                            "You have run out of funds and can no longer play. " \
+                                                            "You may export or quit the game."
+            self.balance_text.config(text=error_append)
+
 
 # main routine
 if __name__ == "__main__":
