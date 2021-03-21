@@ -29,7 +29,7 @@ class Start:
     def open_play_box(self, stakes):
         self.stakes = stakes
         Play(self)
-        root.destroy()
+        root.withdraw()
 
 
 class Play:
@@ -60,7 +60,7 @@ class Play:
 
         self.play_box = Toplevel()
 
-        self.play_box.protocol('WM_DELETE_WINDOW', partial(self.close_play, partner))
+        self.play_box.protocol('WM_DELETE_WINDOW', partial(self.close_play))
 
         # Set up GUI Frame
 
@@ -132,13 +132,13 @@ class Play:
 
         self.quit_button = Button(self.play_frame, text="Quit",
                                   padx=80, pady=10,
-                                  font=("Arial", "10", "bold"), command=partial(self.close_play, partner))
+                                  font=("Arial", "10", "bold"), command=partial(self.close_play))
         self.quit_button.grid(row=6, pady=10)
 
-    def close_play(self, partner):
+    def close_play(self):
         self.play_box.destroy()
 
-    def open_boxes(self,partner):
+    def open_boxes(self, partner):
         prize_1 = self.prize_list[randint(0, 11)]
         prize_2 = self.prize_list[randint(0, 11)]
         prize_3 = self.prize_list[randint(0, 11)]
