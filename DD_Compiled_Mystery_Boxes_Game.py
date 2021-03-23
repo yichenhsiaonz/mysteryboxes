@@ -3,6 +3,16 @@ from functools import partial  # To prevent unwanted windows
 from random import *
 
 
+def number_checker(input_number):
+    try:
+        if int(input_number) <= 50:
+            return int(input_number)
+        else:
+            return "Too High"
+    except ValueError:
+        return "Not int"
+
+
 class Start:
     def __init__(self):
 
@@ -22,11 +32,15 @@ class Start:
                                  padx=10, pady=10)
         self.start_label.grid(row=0)
 
-        # Start input (row 1)
+        # Error Label (row 1)
+        self.error_label = Label(self.start_frame, text="")
+        self.money_entry.grid(row=1, column=0)
+
+        # Start input (row 2)
 
         self.input_frame = Frame(self.start_frame, bg=background_color)
 
-        self.input_frame.grid(row=1)
+        self.input_frame.grid(row=2)
 
         self.money_entry = Entry(self.input_frame, width=15, font=("Arial", "15"))
         self.money_entry.insert(0, "0")
@@ -38,18 +52,18 @@ class Start:
                                        padx=2, command=self.update_balance)
         self.add_funds_button.grid(row=0, column=1)
 
-        # Balance label (row 2)
+        # Balance label (row 3)
 
         self.balance_label = Label(self.start_frame, text="Balance: {}".format(self.balance),
                                    font=("Arial", "10"),
                                    bg=background_color,
                                    padx=10, pady=10)
-        self.balance_label.grid(row=2, pady=2)
+        self.balance_label.grid(row=3, pady=2)
 
-        # Play buttons (row 3)
+        # Play buttons (row 4)
 
         self.play_button_frame = Frame(self.start_frame, bg=background_color)
-        self.play_button_frame.grid(row=3)
+        self.play_button_frame.grid(row=4)
 
         self.play_button_low = Button(self.play_button_frame, text="Low ($5)",
                                       font=("Arial", "10"), bg="green yellow",
@@ -67,10 +81,10 @@ class Start:
         self.update_balance()
         self.play_button_high.grid(row=0, column=2, padx=5)
 
-        # Export / Help buttons (row 4)
+        # Export / Help buttons (row 5)
 
         self.export_help_frame = Frame(self.start_frame, bg=background_color, pady=10)
-        self.export_help_frame.grid(row=4)
+        self.export_help_frame.grid(row=5)
 
         self.export_button = Button(self.export_help_frame, text="Export",
                                     font=("Arial", "14"),
@@ -88,17 +102,23 @@ class Start:
         root.withdraw()
 
     def update_balance(self):
-        self.balance = int(self.money_entry.get())
-        self.balance_label.config(text="Balance: {}".format(self.balance))
-        self.play_button_low.config(state=DISABLED)
-        self.play_button_mid.config(state=DISABLED)
-        self.play_button_high.config(state=DISABLED)
-        if self.balance >= 5:
-            self.play_button_low.config(state=NORMAL)
-            if self.balance >= 10:
-                self.play_button_mid.config(state=NORMAL)
-                if self.balance >= 15:
-                    self.play_button_high.config(state=NORMAL)
+        self.balance = number_checker(self.money_entry.get())
+        if type(self.balance) == int:
+            self.balance_label.config(text="Balance: {}".format(self.balance))
+            self.play_button_low.config(state=DISABLED)
+            self.play_button_mid.config(state=DISABLED)
+            self.play_button_high.config(state=DISABLED)
+            if self.balance >= 5:
+                self.play_button_low.config(state=NORMAL)
+                if self.balance >= 10:
+                    self.play_button_mid.config(state=NORMAL)
+                    if self.balance >= 15:
+                        self.play_button_high.config(state=NORMAL)
+
+        elif self.balance == "Too High":
+            self.error_label.config(text="No adding more than $50")
+        else:
+            self.error_label.config(text="Plase enter a valid integer")
 
 
 class Play:
@@ -129,7 +149,7 @@ class Play:
 
         self.play_box = Toplevel()
 
-        self.play_box.protocol('WM_DELETE_WINDOW', partial(self.close_play, partner))
+        self.play_box.protocol('WM_DELETE_WINDOW', partial(root.destroy))
 
         # Set up GUI Frame
 
@@ -187,27 +207,24 @@ class Play:
         self.export_help_frame = Frame(self.play_frame, bg=background, pady=10)
         self.export_help_frame.grid(row=5)
 
-        self.export_button = Button(self.export_help_frame, text="Help / Rules",
+        self.help_button = Button(self.export_help_frame, text="Help / Rules",
+                                  font=("Arial", "14"),
+                                  padx=10, pady=3, command=self.open_help)
+        self.help_button.grid(row=0, column=0, padx=5)
+
+        self.export_button = Button(self.export_help_frame, text="Game Stats",
                                     font=("Arial", "14"),
                                     padx=10, pady=3)
-        self.export_button.grid(row=0, column=0, padx=5)
-
-        self.help_button = Button(self.export_help_frame, text="Game Stats",
-                                  font=("Arial", "14"),
-                                  padx=10, pady=3)
-        self.help_button.grid(row=0, column=1, padx=5)
+        self.export_button.grid(row=0, column=1, padx=5)
 
         # quit button (row 6)
 
         self.quit_button = Button(self.play_frame, text="Quit",
                                   padx=80, pady=10,
-                                  font=("Arial", "10", "bold"), command=partial(self.close_play, partner))
+                                  font=("Arial", "10", "bold"), command=partial(root.destroy))
         self.quit_button.grid(row=6, pady=10)
 
-    def close_play(self, partner):
-        self.play_box.destroy()
-
-    def open_boxes(self,partner):
+    def open_boxes(self, partner):
         prize_1 = self.prize_list[randint(0, 11)]
         prize_2 = self.prize_list[randint(0, 11)]
         prize_3 = self.prize_list[randint(0, 11)]
@@ -238,8 +255,54 @@ class Play:
                                                             "You may export or quit the game."
             self.balance_text.config(text=error_append)
 
-    def close_play(self, partner):
-        self.play_box.destroy()
+    def open_help(self):
+        self.help_button.configure(state=DISABLED)
+        get_help = Help(self)
+        get_help.help_text.config(text="Choose an amount to play with and then choose the stakes. "
+                                       "Higher stakes will cost more per round but you can win more as well.\n\n"
+                                       "When you enter the play area, wou will see three mystery boxes. "
+                                       "To reveal the contents of the boxes, click the `Open Boxes` button. "
+                                       "If you don't have enough money to play, "
+                                       "the button will turn red and you will need to quit the game.\n\n"
+                                       "The contents of the boxes will be added to your balance. "
+                                       "The boxes could contain...\n\n"
+                                       "Low: Lead($0) | Copper($1) | Silver($2) | Gold($5)\n\n"
+                                       "Medium: Lead($0) | Copper($2) | Silver($4) | Gold($10)\n\n"
+                                       "High: Lead($0) | Copper($3) | Silver($6) | Gold($15)\n\n"
+                                       "If each box contains gold, you will earn $30 (low stakes). "
+                                       "If they contained copper, silver, and gold, "
+                                       "you would receive $13 ($1 + $2 + $10) and so on.")
+
+
+class Help:
+    def __init__(self, partner):
+        background = "bisque"
+
+        self.help_box = Toplevel()
+
+        self.help_box.protocol('WM_DELETE_WINDOW', partial(self.close_help, partner))
+
+        # Help frame
+
+        self.help_frame = Frame(self.help_box, width=300, bg=background)
+        self.help_frame.grid()
+
+        self.help_title = Label(self.help_frame, justify=LEFT, text="Help / Payout Schedule",
+                                font=("Arial", "14", "bold"), bg=background)
+        self.help_title.grid(row=0)
+
+        self.help_text = Label(self.help_frame, justify=LEFT, bg=background, wrap=400)
+        self.help_text.grid(row=1, padx=5)
+
+        self.exit_button = Button(self.help_frame, text="Close", command=partial(self.close_help, partner),
+                                  width=20,
+                                  pady=5)
+        self.exit_button.grid(row=2, pady=5)
+
+    def close_help(self, partner):
+        partner.help_button.config(state=NORMAL)
+        self.help_box.destroy()
+
 
 # main routine
 if __name__ == "__main__":

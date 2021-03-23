@@ -101,13 +101,13 @@ class Play:
         self.export_help_frame.grid(row=5)
 
         self.help_button = Button(self.export_help_frame, text="Help / Rules",
-                                    font=("Arial", "14"),
-                                    padx=10, pady=3, command=self.open_help)
+                                  font=("Arial", "14"),
+                                  padx=10, pady=3, command=self.open_help)
         self.help_button.grid(row=0, column=0, padx=5)
 
         self.export_button = Button(self.export_help_frame, text="Game Stats",
-                                  font=("Arial", "14"),
-                                  padx=10, pady=3)
+                                    font=("Arial", "14"),
+                                    padx=10, pady=3)
         self.export_button.grid(row=0, column=1, padx=5)
 
     def close_play(self):
@@ -116,7 +116,20 @@ class Play:
     def open_help(self):
         self.help_button.configure(state=DISABLED)
         get_help = Help(self)
-        get_help.help_text.config(text="help here")
+        get_help.help_text.config(text="Choose an amount to play with and then choose the stakes. "
+                                       "Higher stakes will cost more per round but you can win more as well.\n\n"
+                                       "When you enter the play area, wou will see three mystery boxes. "
+                                       "To reveal the contents of the boxes, click the `Open Boxes` button. "
+                                       "If you don't have enough money to play, "
+                                       "the button will turn red and you will need to quit the game.\n\n"
+                                       "The contents of the boxes will be added to your balance. "
+                                       "The boxes could contain...\n\n"
+                                       "Low: Lead($0) | Copper($1) | Silver($2) | Gold($5)\n\n"
+                                       "Medium: Lead($0) | Copper($2) | Silver($4) | Gold($10)\n\n"
+                                       "High: Lead($0) | Copper($3) | Silver($6) | Gold($15)\n\n"
+                                       "If each box contains gold, you will earn $30 (low stakes). "
+                                       "If they contained copper, silver, and gold, "
+                                       "you would receive $13 ($1 + $2 + $10) and so on.")
 
 
 class Help:
@@ -133,16 +146,20 @@ class Help:
         self.help_frame = Frame(self.help_box, width=300, bg=background)
         self.help_frame.grid()
 
-        self.help_title = Label(self.help_frame, text="YA")
+        self.help_title = Label(self.help_frame, justify=LEFT, text="Help / Payout Schedule",
+                                font=("Arial", "14", "bold"), bg=background)
         self.help_title.grid(row=0)
 
-        self.help_text = Label(self.help_frame, font=("Arial", "10", "bold"))
-        self.help_text.grid(row=1)
+        self.help_text = Label(self.help_frame, justify=LEFT, bg=background, wrap=400)
+        self.help_text.grid(row=1, padx=5)
 
+        self.exit_button = Button(self.help_frame, text="Close", command=partial(self.close_help, partner), width=20,
+                                  pady=5)
+        self.exit_button.grid(row=2, pady=5)
 
     def close_help(self, partner):
         partner.help_button.config(state=NORMAL)
-        self.help_box.destory()
+        self.help_box.destroy()
 
 
 
