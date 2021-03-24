@@ -1,0 +1,7 @@
+Starting Balance: $50
+
+Current Balance: $11
+
+Amount Lost: $39
+
+Rounds Played: 16

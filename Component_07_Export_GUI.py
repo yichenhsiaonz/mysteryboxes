@@ -12,6 +12,7 @@ def number_checker(input_number):
     except ValueError:
         return "Not int"
 
+
 def regex_check(file_name):
     if re.search("[.<>:\"/|?*\\\\\040]", file_name):
         return "Invalid file name - illegal character(s)\n. < > : \" / \\ | ? *)"
@@ -131,7 +132,9 @@ class Start:
 class Play:
     def __init__(self, partner):
 
-        # set up prize loop
+        self.rounds_played = 0
+
+        self.balance = partner.balance
 
         self.temp_balance = partner.balance
 
@@ -242,6 +245,7 @@ class Play:
         earnings = prize_1[1]*partner.stakes + prize_2[1]*partner.stakes + prize_3[1]*partner.stakes
         loss = prize_1[1]*partner.stakes + prize_2[1]*partner.stakes + prize_3[1]*partner.stakes - partner.stakes * 5
         self.temp_balance += earnings
+        self.rounds_played += 1
 
         payout_text = "\nGame cost: ${}\nPayout: ${}\n".format(partner.stakes * 5, earnings)
 
@@ -265,7 +269,7 @@ class Play:
     def open_history(self):
         self.export_button.configure(state=DISABLED)
         get_history = History(self)
-        get_history.history_text.config(text="yah")
+        get_history.history_text.config(justify=LEFT)
 
     def open_help(self):
         self.help_button.configure(state=DISABLED)
@@ -300,7 +304,7 @@ class Help:
         self.help_frame.grid()
 
         self.help_title = Label(self.help_frame, justify=LEFT, text="Help / Payout Schedule",
-                                font=("Arial", "14", "bold"), bg=background)
+                                font=("Arial", "14", "bold"), bg=background, anchor='nw')
         self.help_title.grid(row=0)
 
         self.help_text = Label(self.help_frame, justify=LEFT, bg=background, wrap=400)
@@ -319,7 +323,7 @@ class Help:
 class History:
     def __init__(self, partner):
 
-        background= "bisque"
+        background = "bisque"
 
         # Sets up child window (ie) history box
         self.history_box = Toplevel()
@@ -334,19 +338,38 @@ class History:
         self.history_label = Label(self.history_frame, text="Game Stats",
                                    font=("Arial", "14", "bold"),
                                    bg=background,
-                                   padx=10, pady=10)
+                                   padx=10, pady=10, justify=LEFT)
         self.history_label.grid(row=0)
 
         # History text (label, row 1)
-        self.history_text = Label(self.history_frame,
+
+        if partner.balance - partner.temp_balance <= 0:
+            won_lost_text = "Won"
+            amount_won_lost = partner.temp_balance - partner.balance
+        else:
+            won_lost_text = "Lost"
+            amount_won_lost = partner.balance - partner.temp_balance
+        self.text_entry = "Starting Balance: ${}\n\n" \
+                          "Current Balance: ${}\n\n" \
+                          "Amount {}: ${}\n\n" \
+                          "Rounds Played: {}".format(partner.balance,
+                                                     partner.temp_balance,
+                                                     won_lost_text,
+                                                     amount_won_lost,
+                                                     partner.rounds_played)
+        self.history_text = Label(self.history_frame, text=self.text_entry,
                                   justify=LEFT, width=40,
-                                  bg=background, wrap=250, )
+                                  bg=background, wrap=250)
         self.history_text.grid(row=1)
 
         # History entries
 
-        self.history_entries = Label(self.history_frame)
-        self.history_entries.grid(row=2)
+        self.export_instructions = Label(self.history_frame, fg="green", text="Please use the \'Export\' button to "
+                                                                              "generate a text file showing\nyour "
+                                                                              "statistics amd the results of each "
+                                                                              "round you played",
+                                         bg=background, justify=LEFT)
+        self.export_instructions.grid(row=2)
 
         # Dismiss / export buttons (row 3)
         self.export_calc_history_dismiss_frame = Frame(self.history_frame)
@@ -372,8 +395,9 @@ class History:
     def close_history(self, partner):
         # Put history button back to normal...
 
-        partner.history_button.config(state=NORMAL)
+        partner.export_button.config(state=NORMAL)
         self.history_box.destroy()
+
 
 class Export:
     def __init__(self, partner):
@@ -401,7 +425,7 @@ class Export:
         self.export_label.grid(row=0)
 
         # Export text (label, row 1)
-        self.export_text = Label(self.export_frame, text="",
+        self.export_text = Label(self.export_frame,
                                  justify=LEFT, width=40,
                                  bg=background, wrap=250, )
         self.export_text.grid(row=1)
@@ -418,7 +442,7 @@ class Export:
         # Export button (row 2)
         self.export_btn = Button(self.export_dismiss_frame, text="Export",
                                  padx=10, pady=5, font="arial 10 bold",
-                                 command=self.press_export)
+                                 command=partial(self.press_export, partner))
         self.export_btn.grid(row=0, column=0)
 
         # Dismiss button (row 2)
@@ -437,12 +461,12 @@ class Export:
             # prevents errors if history box is closed first
             self.export_box.destroy()
 
-    def press_export(self):
+    def press_export(self, partner):
         chosen_name = self.file_name_input.get()
         regex_check_result = regex_check(chosen_name)
         if regex_check_result == "No Error":
             text_file = open("{}.txt".format(chosen_name), "w")
-            text_file.write("{}\n".format(ya))
+            text_file.write("{}\n".format(partner.text_entry))
             text_file.close()
             self.export_text.config(text="Success!")
 
