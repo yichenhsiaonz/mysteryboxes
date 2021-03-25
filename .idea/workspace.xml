@@ -77,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DD_Compiled_Mystery_Boxes_Game.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DD_Compiled_Mystery_Boxes_Game.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DD_Compiled_Mystery_Boxes_Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1088">
-              <caret line="66" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+            <state relative-caret-position="-5559">
+              <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -89,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Component_07_Export_GUI.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Component_07_Export_GUI.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Component_07_Export_GUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="361" column="58" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
+            <state relative-caret-position="612">
+              <caret line="488" column="52" selection-start-line="0" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -125,8 +125,8 @@
         <option value="$PROJECT_DIR$/Component_06_Help_GUI.py" />
         <option value="$PROJECT_DIR$/Component_05_Working_Game.py" />
         <option value="$PROJECT_DIR$/Component_03_Play_Menu.py" />
-        <option value="$PROJECT_DIR$/DD_Compiled_Mystery_Boxes_Game.py" />
         <option value="$PROJECT_DIR$/Component_07_Export_GUI.py" />
+        <option value="$PROJECT_DIR$/DD_Compiled_Mystery_Boxes_Game.py" />
       </list>
     </option>
   </component>
@@ -162,8 +162,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -184,6 +182,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -194,13 +194,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/hsiaoy71950/OneDrive - Massey High School/Documents/GitHub/mysteryboxes/DD_Compiled_Mystery_Boxes_Game.py" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hsiaoy71950\OneDrive - Massey High School\Documents\GitHub\mysteryboxes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Component_07_Export_GUI">
+  <component name="RunManager" selected="Python.DD_Compiled_Mystery_Boxes_Game">
     <configuration default="false" name="Component_05_Working_Game" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -429,8 +430,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Component_07_Export_GUI" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DD_Compiled_Mystery_Boxes_Game" />
+        <item index="0" class="java.lang.String" itemvalue="Python.DD_Compiled_Mystery_Boxes_Game" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Component_07_Export_GUI" />
         <item index="2" class="java.lang.String" itemvalue="Python.Component_05_Working_Game" />
         <item index="3" class="java.lang.String" itemvalue="Python.Component_06_Help_GUI" />
         <item index="4" class="java.lang.String" itemvalue="Python.test" />
@@ -456,7 +457,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.108333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -533,14 +534,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/Component_02_Start_Menu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -835,14 +829,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AA_Compiled_Mystery_Boxes_Game.py" />
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py" />
     <entry file="file://$PROJECT_DIR$/Component_02_Start_Menu.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -891,20 +878,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DD_Compiled_Mystery_Boxes_Game.py">
+    <entry file="file://$PROJECT_DIR$/Component_07_Export_GUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="66" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
+        <state relative-caret-position="612">
+          <caret line="488" column="52" selection-start-line="0" selection-start-column="0" selection-end-line="500" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Component_07_Export_GUI.py">
+    <entry file="file://$PROJECT_DIR$/DD_Compiled_Mystery_Boxes_Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="361" column="58" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
+        <state relative-caret-position="-5559">
+          <caret line="114" column="39" selection-start-line="114" selection-start-column="39" selection-end-line="114" selection-end-column="39" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>

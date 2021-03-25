@@ -132,7 +132,11 @@ class Start:
 class Play:
     def __init__(self, partner):
 
+        self.stakes = partner.stakes
+
         self.rounds_played = 0
+
+        self.history_list = []
 
         self.balance = partner.balance
 
@@ -247,6 +251,8 @@ class Play:
         self.temp_balance += earnings
         self.rounds_played += 1
 
+        self.history_list.append(earnings)
+
         payout_text = "\nGame cost: ${}\nPayout: ${}\n".format(partner.stakes * 5, earnings)
 
         if earnings > partner.stakes * 5:
@@ -324,6 +330,10 @@ class History:
     def __init__(self, partner):
 
         background = "bisque"
+
+        self.history_list = partner.history_list
+
+        self.stakes = partner.stakes
 
         # Sets up child window (ie) history box
         self.history_box = Toplevel()
@@ -466,7 +476,15 @@ class Export:
         regex_check_result = regex_check(chosen_name)
         if regex_check_result == "No Error":
             text_file = open("{}.txt".format(chosen_name), "w")
-            text_file.write("{}\n".format(partner.text_entry))
+            text_file.write("{}\n\n".format(partner.text_entry))
+            text_file.write("Full round history:\n\n")
+            text_file.write("Cost Per Round: ${}\n\n".format(partner.stakes))
+
+            loop_count = 1
+
+            for x in partner.history_list:
+                text_file.write("Round {} Payout: ${}\n".format(loop_count, x))
+                loop_count += 1
             text_file.close()
             self.export_text.config(text="Success!")
 

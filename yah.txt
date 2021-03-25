@@ -1,0 +1,23 @@
+Starting Balance: $50
+
+Current Balance: $14
+
+Amount Lost: $36
+
+Rounds Played: 11
+
+Full round history:
+
+Cost Per Round: $3
+
+Round 1 Payout: $12
+Round 2 Payout: $12
+Round 3 Payout: $24
+Round 4 Payout: $15
+Round 5 Payout: $21
+Round 6 Payout: $3
+Round 7 Payout: $12
+Round 8 Payout: $9
+Round 9 Payout: $9
+Round 10 Payout: $6
+Round 11 Payout: $6
